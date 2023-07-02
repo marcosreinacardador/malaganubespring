@@ -1,5 +1,6 @@
 package edu.arealance.nube.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -24,6 +25,16 @@ public class RestauranteServiceImpl implements RestauranteService{
 		return this.restauranteRepository.findAll();    //le pido todos los restaurantes a la base de datos y le devuelvo todos los restaurante con iterable findAll()
 		//return null;
 	}
+	
+	//todos los barrios (distintos) de la base de datos
+	@Override
+	@Transactional(readOnly = true)   //utilizamos el de spring y no el de Tomcat, permitimos acceso concurrente a a la tabla Restaurantes
+	public List<String> listaBarrios() {  //Se ha generado con add unimplemented methods lo implementa desde RestauranteService
+		List<String> lista_barrios = null;
+		lista_barrios = this.restauranteRepository.listaBarrios();    //le pido todos los restaurantes a la base de datos y le devuelvo todos los restaurante con iterable findAll()
+		return lista_barrios;
+	}
+	
 
 	@Override
 	@Transactional(readOnly = true)   //utilizamos el de spring y no el de Tomcat, permitimos acceso concurrente a a la tabla Restaurantes

@@ -5,6 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import edu.arealance.nube.repository.entity.Restaurante;
+import java.util.List;
+
 
 @Repository
 public interface RestauranteRepository extends CrudRepository<Restaurante, Long>{
@@ -30,5 +32,8 @@ public interface RestauranteRepository extends CrudRepository<Restaurante, Long>
 	
 	Iterable<Restaurante> findByPrecioMedioBetween(int preciomin, int preciomax);
 	
-
+//	Haced un servicio web que devuelva todos los barrios (distintos) de la base de datos :)
+//	http://localhost:8081/restaurante/ListarBarrios
+	@Query(value = "Select distinct barrio from restaurantes;", nativeQuery = true)
+	List<String> listaBarrios();
 }

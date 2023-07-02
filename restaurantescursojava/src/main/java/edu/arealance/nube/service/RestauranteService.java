@@ -1,5 +1,6 @@
 package edu.arealance.nube.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import edu.arealance.nube.repository.entity.Restaurante;
@@ -32,5 +33,8 @@ public interface RestauranteService {
 	Iterable<Restaurante> obtenerPorRangoPrecio(int min, int max);   //aqui cambiamos el nombre del servicio que se ha copiado del repositorio.
 	
 	Iterable<Restaurante> listarNombreBarrioOEspecialidad(String clave);
+	
+	//	todos los barrios (distintos) de la base de datos
+	List<String> listaBarrios();
 	
 }

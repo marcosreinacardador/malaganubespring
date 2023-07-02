@@ -101,6 +101,24 @@ public class RestauranteController {
 		return responseEntity;
 	}
 	
+//	GET -> consultar todos los barrios (distintos) de la base de datos 
+//	GET http://localhost:8081/restaurante/lBarrios
+	@GetMapping("/lBarrios")
+	public ResponseEntity<?> listarPorBarriosUnicos() {
+		
+		ResponseEntity<?> responseEntity = null;   // representa el mensaje http y devuelve cualquier cosa
+		List<String> listBarrios = null;
+			
+			listBarrios = this.restauranteService.listaBarrios();  // dame la lista de restaurantes y me da el servicio
+			responseEntity = ResponseEntity.ok(listBarrios);  // con esto estamos construyendo el objeto de vuelta que es responseEntity
+			//logger.info("Si acabo de listar todos los registros.");
+		return responseEntity;
+	}
+	
+	
+	
+	
+	
 //	  GET -> consultar uno (por ID)  http://localhost:8081/restaurante/id
 	@Operation(description =  "Este servicio permite la consulta de un restaurante por ID")   // para documentar cada método en la OPEN API
 	@GetMapping("/{id}")
@@ -235,7 +253,8 @@ public class RestauranteController {
 		
 	}
 	
-	
+
+
 	
 	
 }
