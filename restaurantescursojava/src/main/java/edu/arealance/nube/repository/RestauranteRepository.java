@@ -35,5 +35,8 @@ public interface RestauranteRepository extends CrudRepository<Restaurante, Long>
 //	Haced un servicio web que devuelva todos los barrios (distintos) de la base de datos :)
 //	http://localhost:8081/restaurante/ListarBarrios
 	@Query(value = "Select distinct barrio from restaurantes;", nativeQuery = true)
-	List<String> listaBarrios();
+//	List<String> listaBarrios();
+	Iterable<String> listaBarrios();
+//	el mismo que el anterior pero Con Key words Querys
+//	Iterable<String> findDistinctByBarrioIgnoreCase();
 }

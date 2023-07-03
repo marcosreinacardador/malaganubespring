@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,10 @@ public class RestauranteController {
 	
 	@Autowired  // hace falta inyectar
 	RestauranteService restauranteService;  // viene llamado desde RestauranteServiceImple 
+	
+	@Autowired
+	Environment environment;  // de aqui voy asacar la instancia del pueerto
+	
 	
 	Logger logger = LoggerFactory.getLogger(RestauranteController.class);
 
@@ -95,6 +100,7 @@ public class RestauranteController {
 			
 //			String saludo = "Hola";
 //			saludo.charAt(10);
+			logger.debug("Atendido por el puerto " + environment.getProperty("local.server.port"));
 			lista_Restaurantes = this.restauranteService.consultarTodos();  // dame la lista de restaurantes y me da el servicio
 			responseEntity = ResponseEntity.ok(lista_Restaurantes);  // con esto estamos construyendo el objeto de vuelta que es responseEntity
 			//logger.info("Si acabo de listar todos los registros.");
@@ -107,7 +113,8 @@ public class RestauranteController {
 	public ResponseEntity<?> listarPorBarriosUnicos() {
 		
 		ResponseEntity<?> responseEntity = null;   // representa el mensaje http y devuelve cualquier cosa
-		List<String> listBarrios = null;
+//		List<String> listBarrios = null;
+		Iterable<String> listBarrios = null;
 			
 			listBarrios = this.restauranteService.listaBarrios();  // dame la lista de restaurantes y me da el servicio
 			responseEntity = ResponseEntity.ok(listBarrios);  // con esto estamos construyendo el objeto de vuelta que es responseEntity

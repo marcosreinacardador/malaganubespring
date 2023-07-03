@@ -29,8 +29,9 @@ public class RestauranteServiceImpl implements RestauranteService{
 	//todos los barrios (distintos) de la base de datos
 	@Override
 	@Transactional(readOnly = true)   //utilizamos el de spring y no el de Tomcat, permitimos acceso concurrente a a la tabla Restaurantes
-	public List<String> listaBarrios() {  //Se ha generado con add unimplemented methods lo implementa desde RestauranteService
-		List<String> lista_barrios = null;
+	public Iterable<String> listaBarrios() {  //Se ha generado con add unimplemented methods lo implementa desde RestauranteService
+//		List<String> lista_barrios = null;
+		Iterable<String> lista_barrios = null;
 		lista_barrios = this.restauranteRepository.listaBarrios();    //le pido todos los restaurantes a la base de datos y le devuelvo todos los restaurante con iterable findAll()
 		return lista_barrios;
 	}

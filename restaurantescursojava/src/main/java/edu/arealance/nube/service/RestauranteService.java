@@ -35,6 +35,6 @@ public interface RestauranteService {
 	Iterable<Restaurante> listarNombreBarrioOEspecialidad(String clave);
 	
 	//	todos los barrios (distintos) de la base de datos
-	List<String> listaBarrios();
-	
+//	List<String> listaBarrios();
+	Iterable<String> listaBarrios();
 }
