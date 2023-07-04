@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import edu.arealance.nube.dto.FraseChuckNorris;
 import edu.arealance.nube.repository.entity.Restaurante;
 import edu.arealance.nube.service.RestauranteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,7 +54,7 @@ public class RestauranteController {
 	RestauranteService restauranteService;  // viene llamado desde RestauranteServiceImple 
 	
 	@Autowired
-	Environment environment;  // de aqui voy asacar la instancia del pueerto
+	Environment environment;  // de aqui voy asacar la instancia del puerto
 	
 	
 	Logger logger = LoggerFactory.getLogger(RestauranteController.class);
@@ -176,7 +176,10 @@ public class RestauranteController {
 	
 //	  PUT -> modificar un restaurante que ya existe  http://localhost:8081/restaurante/id (Body Restaurante)
 	@PutMapping("/{id}")
-	public ResponseEntity<?> modificaRestaurante(@Valid  @RequestBody Restaurante restaurante, @PathVariable Long id, BindingResult bindingResult){  //deserializa por recibir un texto
+	public ResponseEntity<?> modificaRestaurante(
+			@Valid  @RequestBody Restaurante restaurante,
+			BindingResult bindingResult,
+			@PathVariable Long id){  //deserializa por recibir un texto
 		
 		ResponseEntity<?> responseEntity = null;   // representa el mensaje http y devuelve cualquier cosa
 		Optional<Restaurante> opRestaurante = null;
@@ -260,7 +263,23 @@ public class RestauranteController {
 		
 	}
 	
+	@GetMapping("/fraseChukNorris")
+	public ResponseEntity<?> obtieneFrase() {
+		ResponseEntity<?> responseEntity = null;
+		Optional<FraseChuckNorris> opFrase = null;
 
+			opFrase = this.restauranteService.obtenerFraseAleatorioChuckNorris();
+			if(opFrase.isPresent()) {
+				FraseChuckNorris frase = opFrase.get();
+				responseEntity = ResponseEntity.ok(frase);
+			} else {
+				responseEntity = ResponseEntity.noContent().build();
+			}
+			
+
+		return responseEntity;
+
+	}
 
 	
 	

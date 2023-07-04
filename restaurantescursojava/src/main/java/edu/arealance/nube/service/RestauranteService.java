@@ -3,6 +3,7 @@ package edu.arealance.nube.service;
 import java.util.List;
 import java.util.Optional;
 
+import edu.arealance.nube.dto.FraseChuckNorris;
 import edu.arealance.nube.repository.entity.Restaurante;
 
 public interface RestauranteService {
@@ -37,4 +38,7 @@ public interface RestauranteService {
 	//	todos los barrios (distintos) de la base de datos
 //	List<String> listaBarrios();
 	Iterable<String> listaBarrios();
+	
+	//Obtener frase aleatoria
+	Optional<FraseChuckNorris> obtenerFraseAleatorioChuckNorris();
 }
