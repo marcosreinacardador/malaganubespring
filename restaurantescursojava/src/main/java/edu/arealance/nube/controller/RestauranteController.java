@@ -170,7 +170,7 @@ public class RestauranteController {
 		} else {
 			logger.debug("Sin errores en la entrada POST");
 			restauranteNuevo = this.restauranteService.altaRestaurante(restaurante);
-			responseEntity =  ResponseEntity.status(HttpStatus.CREATED).body(restaurante);  // 201 es porque se ha creado
+			responseEntity =  ResponseEntity.status(HttpStatus.CREATED).body(restauranteNuevo);  // 201 es porque se ha creado
 		}
 		return responseEntity;	
 		}
