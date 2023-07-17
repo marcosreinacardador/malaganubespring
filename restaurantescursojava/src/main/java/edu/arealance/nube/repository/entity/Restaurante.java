@@ -7,11 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "restaurantes", schema = "bdrestaurantes")
@@ -57,6 +60,21 @@ public class Restaurante {
 		this.creadoEN = LocalDateTime.now();  // obtengo la fecha de hoy metodo estatico 
 	}
 
+	@Lob
+	@JsonIgnore  // no queremos que este atributo vaya con el JSON de respuesta
+	private byte[] foto;
+	
+	public Integer getFotoHashCode() {
+		
+		Integer idev = null;
+		
+			if(this.foto!= null) {
+				idev = this.foto.hashCode();  //hascode es la direccion de memoria del atributo idev
+			}
+		
+		return idev;
+	}
+	
 	
 //	Getters y Setters
 	public Long getId() {
@@ -194,6 +212,15 @@ public class Restaurante {
 				+ ", web=" + web + ", fichaGoogle=" + fichaGoogle + ", latitud=" + latitud + ", longitud=" + longitud
 				+ ", precioMedio=" + precioMedio + ", especialidad1=" + especialidad1 + ", especialidad2="
 				+ especialidad2 + ", especialidad3=" + especialidad3 + ", creadoEN=" + creadoEN + "]";
+	}
+
+	
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
 	}
 
 	

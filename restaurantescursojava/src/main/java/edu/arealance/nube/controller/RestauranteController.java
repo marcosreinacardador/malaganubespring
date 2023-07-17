@@ -1,5 +1,6 @@
 package edu.arealance.nube.controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.List;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.arealance.nube.dto.FraseChuckNorris;
 import edu.arealance.nube.repository.entity.Restaurante;
@@ -283,6 +285,39 @@ public class RestauranteController {
 
 	}
 
+	// Insertar con foto 
+	
+	@PostMapping("/crear-con-foto")    // POST localhost:8081/restaurante/crear-con-foto
+	public ResponseEntity<?> insertarRestauranteConFoto(@Valid Restaurante restaurante, BindingResult bindingResult, MultipartFile archivo) throws IOException{ //quitamos el @ResquestBody añadimos multiPartFile archivo
+												
+		ResponseEntity<?> responseEntity = null;   // representa el mensaje http y devuelve cualquier cosa
+		Restaurante restauranteNuevo = null;
+
+		//TODO validar
+		if(bindingResult.hasErrors()) {
+			logger.debug("Errores en la entrada POST");
+			responseEntity = generarRespuestaErroresValidacion(bindingResult);
+		} else {
+			logger.debug("Sin errores en la entrada POST");
+			
+			if(!archivo.isEmpty()) {
+				logger.debug("Restaurante trae foto");
+				try {
+					restaurante.setFoto(archivo.getBytes());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					logger.debug("Error al tratar la foto", e);
+					throw e;  //lanzo la excepción
+				}
+			}
+			
+			restauranteNuevo = this.restauranteService.altaRestaurante(restaurante);
+			responseEntity =  ResponseEntity.status(HttpStatus.CREATED).body(restauranteNuevo);  // 201 es porque se ha creado
+		}
+		return responseEntity;	
+		}
+	
 	
 	
 }
