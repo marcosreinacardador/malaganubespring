@@ -60,11 +60,11 @@ public class Restaurante {
 		this.creadoEN = LocalDateTime.now();  // obtengo la fecha de hoy metodo estatico 
 	}
 
-	@Lob
-	@JsonIgnore  // no queremos que este atributo vaya con el JSON de respuesta
+	@Lob   // este atributo es un fichero tipo blob
+	@JsonIgnore  // no queremos que este atributo vaya con el JSON de respuesta, para que no lo serialize
 	private byte[] foto;
 	
-	public Integer getFotoHashCode() {
+	public Integer getFotoHashCode() {  // genera una bandera o flag
 		
 		Integer idev = null;
 		

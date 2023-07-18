@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -75,7 +77,7 @@ public class RestauranteServiceImpl implements RestauranteService{
  				opRest = Optional.of(restauranteLeido); //Rellenamos el Optional
 			}
 		// 2 ACTUALIZAR
-		return Optional.empty();
+		return opRest;
 	}
 
 	@Override
@@ -84,6 +86,15 @@ public class RestauranteServiceImpl implements RestauranteService{
 		Iterable<Restaurante> listaR = null;
 			listaR = this.restauranteRepository.findByPrecioMedioBetween(preciomin, preciomax);
 		return listaR; 
+	}
+	
+	// paginado
+	@Override
+	@Transactional(readOnly = true)
+	public Iterable<Restaurante> obtenerPorRangoPrecio(int preciomin, int preciomax, Pageable pageable) {
+		Iterable<Restaurante> listaR = null;
+		listaR = this.restauranteRepository.findByPrecioMedioBetween(preciomin, preciomax, pageable);
+		return listaR;
 	}
 
 	@Override
@@ -114,6 +125,14 @@ public class RestauranteServiceImpl implements RestauranteService{
 		    opChuck = Optional.of(fraseChuckNorris);
 		
 		return opChuck;
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Restaurante> consultarPorPaginas(Pageable pageable){
+		
+		return this.restauranteRepository.findAll(pageable);
+		
 	}
 	
 	

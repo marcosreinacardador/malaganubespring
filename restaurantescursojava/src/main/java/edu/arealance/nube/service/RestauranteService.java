@@ -3,6 +3,9 @@ package edu.arealance.nube.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import edu.arealance.nube.dto.FraseChuckNorris;
 import edu.arealance.nube.repository.entity.Restaurante;
 
@@ -41,4 +44,10 @@ public interface RestauranteService {
 	
 	//Obtener frase aleatoria
 	Optional<FraseChuckNorris> obtenerFraseAleatorioChuckNorris();
+	
+	//obtener restaurantes, pero devuelvo una pagina un page de restaurante
+	Page<Restaurante> consultarPorPaginas(Pageable pageable);
+	
+	//pbtener restaurantes por rango de precios min y max paginado
+	Iterable<Restaurante> obtenerPorRangoPrecio(int preciomin, int preciomax, Pageable pageable);
 }
