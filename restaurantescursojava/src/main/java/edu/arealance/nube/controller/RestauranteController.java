@@ -160,25 +160,25 @@ public class RestauranteController {
 //	  POST -> insertar un restaurante nuevo  http://localhost:8081/restaurante (Body Restaurante)
 //            trae el cuerpo que es el json y lo insertamos y devuelvo el nuevo objeto ya insertado
 
-	@PostMapping
-	public ResponseEntity<?> insertarRestaurante(@Valid @RequestBody Restaurante restaurante,
-			BindingResult bindingResult) { // deserializa por recibir un texto
-
-		ResponseEntity<?> responseEntity = null; // representa el mensaje http y devuelve cualquier cosa
-		Restaurante restauranteNuevo = null;
-
-		// TODO validar
-		if (bindingResult.hasErrors()) {
-			logger.debug("Errores en la entrada POST");
-			responseEntity = generarRespuestaErroresValidacion(bindingResult);
-		} else {
-			logger.debug("Sin errores en la entrada POST");
-			restauranteNuevo = this.restauranteService.altaRestaurante(restaurante);
-			responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(restauranteNuevo); // 201 es porque se ha
-																								// creado
-		}
-		return responseEntity;
-	}
+//	@PostMapping
+//	public ResponseEntity<?> insertarRestaurante(@Valid @RequestBody Restaurante restaurante,
+//			BindingResult bindingResult) { // deserializa por recibir un texto
+//
+//		ResponseEntity<?> responseEntity = null; // representa el mensaje http y devuelve cualquier cosa
+//		Restaurante restauranteNuevo = null;
+//
+//		// TODO validar
+//		if (bindingResult.hasErrors()) {
+//			logger.debug("Errores en la entrada POST");
+//			responseEntity = generarRespuestaErroresValidacion(bindingResult);
+//		} else {
+//			logger.debug("Sin errores en la entrada POST");
+//			restauranteNuevo = this.restauranteService.altaRestaurante(restaurante);
+//			responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(restauranteNuevo); // 201 es porque se ha
+//																								// creado
+//		}
+//		return responseEntity;
+//	}
 
 //	  PUT -> modificar un restaurante que ya existe  http://localhost:8081/restaurante/id (Body Restaurante)
 	@PutMapping("/{id}")
@@ -267,8 +267,8 @@ public class RestauranteController {
 //	
 
 	// Buscar por especialidad
-	@GetMapping("/BuscarCualquierCosa/{dato}")
-//	@GetMapping("/BuscarCualquierCosa")  tambien vale hacerlo con parametros
+	@GetMapping("/BuscarCualquierCosa/{dato}")  // con pathvariable
+//	@GetMapping("/BuscarCualquierCosa")  tambien vale hacerlo con parametros  requestparam
 //	public ResponseEntity<?> listarNombreBarrioOEspecialidad(@RequestParam( name = dato) String dato){
 	public ResponseEntity<?> listarNombreBarrioOEspecialidad(@PathVariable String dato) {
 		ResponseEntity<?> responseEntity = null; // representa el mensaje http y devuelve cualquier cosa

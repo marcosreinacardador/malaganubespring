@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.arealance.nube.repository.entity.Restaurante;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -46,4 +47,6 @@ public interface RestauranteRepository extends PagingAndSortingRepository<Restau
 	Iterable<String> listaBarrios();
 //	el mismo que el anterior pero Con Key words Querys
 //	Iterable<String> findDistinctByBarrioIgnoreCase();
+	
+	
 }
